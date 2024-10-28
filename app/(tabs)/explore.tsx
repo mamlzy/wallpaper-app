@@ -1,34 +1,45 @@
-import { DownloadPictureSheet } from '@/components/bottom-sheet';
-import { useState } from 'react';
-import { Button, Text, View } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from 'react-native';
+
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
-
-  console.log({ open });
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <Text>Explore Page</Text>
+    <Tab.Navigator screenOptions={{ tabBarStyle: { paddingTop: insets.top } }}>
+      <Tab.Screen name='Library' component={LibraryScreen} />
+      <Tab.Screen name='Liked' component={LikedScreen} />
+      <Tab.Screen name='Suggested' component={SuggestedScreen} />
+    </Tab.Navigator>
+  );
+}
 
-        <Button
-          title='Open Bottom Sheet'
-          onPress={() => {
-            setOpen(true);
-          }}
-        ></Button>
+function LibraryScreen() {
+  return (
+    <View>
+      <Text>Library Screen</Text>
+    </View>
+  );
+}
 
-        {open && (
-          <DownloadPictureSheet
-            onClose={() => {
-              setOpen(false);
-            }}
-          />
-        )}
-      </View>
-    </SafeAreaView>
+function LikedScreen() {
+  return (
+    <View>
+      <Text>Liked Screen</Text>
+    </View>
+  );
+}
+
+function SuggestedScreen() {
+  return (
+    <View>
+      <Text>Liked Screen</Text>
+    </View>
   );
 }
